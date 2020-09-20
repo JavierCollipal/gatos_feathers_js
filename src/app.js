@@ -11,7 +11,7 @@ const middleware = require('./middleware');
 const services = require('./services');
 const appHooks = require('./app.hooks');
 const channels = require('./channels');
-
+const swagger = require('feathers-swagger')
 const authentication = require('./authentication');
 
 const mongoose = require('./mongoose');
@@ -30,6 +30,16 @@ app.configure(mongoose);
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);
 app.configure(authentication);
+
+app.configure(swagger({
+  specs: {
+    info: {
+      title: 'Cat Finders',
+      description: 'Encuentra gatos perdidos en tu ciudad!, sube fotos de el y la ultima ubicacion geografica donde se encontraba',
+      version: "1.0.0",
+    }
+  }
+}))
 // Set up our services (see `services/index.js`)
 app.configure(services);
 // Set up event channels (see channels.js)
