@@ -1,4 +1,5 @@
-const expressConfig = require('./configuration/express')
+const expressConfig = require('./configuration/express');
+const swaggerConfig = require('./configuration/swagger');
 const logger = require('./logger');
 
 const feathers = require('@feathersjs/feathers');
@@ -31,15 +32,9 @@ app.configure(mongoose);
 app.configure(middleware);
 app.configure(authentication);
 
-app.configure(swagger({
-  specs: {
-    info: {
-      title: 'Cat Finders',
-      description: 'Encuentra gatos perdidos en tu ciudad!, sube fotos de el y la ultima ubicacion geografica donde se encontraba',
-      version: "1.0.0",
-    }
-  }
-}))
+app.configure(swagger(
+  swaggerConfig()
+))
 // Set up our services (see `services/index.js`)
 app.configure(services);
 // Set up event channels (see channels.js)
