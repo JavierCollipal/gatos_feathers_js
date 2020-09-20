@@ -4,13 +4,18 @@ const createModel = require('../../models/cat.model');
 const hooks = require('./cat.hooks');
 
 module.exports = function (app) {
+  const catModel = createModel(app);
+    const paginate = app.get('paginate');
+
+
   const options = {
-    Model: createModel(app),
-    paginate: app.get('paginate')
+    Model: catModel,
+    paginate: paginate
   };
 
-  // Initialize our service with any options it requires
-  app.use('/cat', new Cat(options, app));
+  const catService = new Cat(options, app);
+  // Initialize our sere with any options it requires
+  app.use('/cat',catService );
 
   // Get our initialized service so that we can register hooks
   const service = app.service('cat');
